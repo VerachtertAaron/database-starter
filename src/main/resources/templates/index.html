@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-ABC
+<span th:text="${@environment.getProperty('JDBC_DATABASE_URL')}" />
+
+<th:block th:with="system=${T(java.lang.System)}">
+    <span th:text="${system.getProperty('JDBC_DATABASE_URL')}" />
+
+    <div th:each="key: ${system.getProperties().stringPropertyNames()}" th:utext="${'<b>' + key + '</b>: ' + system.getProperty(key)}" />
+</th:block>
 </body>
 </html>

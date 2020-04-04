@@ -1,0 +1,5 @@
+{
+  "name": "Switchfully Database Starter",
+  "description": "The Switchfully Database Starter, ready for deployment on Heroku",
+  "addons": [ "heroku-postgresql" ]
+}

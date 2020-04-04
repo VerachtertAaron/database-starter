@@ -9,7 +9,9 @@
 
 <th:block th:with="system=${T(java.lang.System)}">
     <span th:text="${system.getProperty('JDBC_DATABASE_URL')}" />
-
+    <span>-----------------------------------</span>
+    <div th:each="entry: ${system.getenv().entrySet()}" th:utext="${'<b>' + entry.getKey() + '</b>: ' + entry.getValue()}" />
+    <span>-----------------------------------</span>
     <div th:each="key: ${system.getProperties().stringPropertyNames()}" th:utext="${'<b>' + key + '</b>: ' + system.getProperty(key)}" />
 </th:block>
 </body>

@@ -27,7 +27,7 @@ public class DatabaseController {
     @GetMapping
     public String createSimpleTable() throws SQLException {
 
-        ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("sql/hello.sql"));
+        ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("sql/hr.sql"));
         return "OK";
     }
 }

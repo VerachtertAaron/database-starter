@@ -1,18 +1,88 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Skeleton from http://getskeleton.com/ -->
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>Database Starter</title>
+    <meta content="Database Starter" name="description">
+    <meta content="Switchfully" name="author">
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" rel="stylesheet">
+
 </head>
 <body>
-<span th:text="${@environment.getProperty('JDBC_DATABASE_URL')}" />
 
-<th:block th:with="system=${T(java.lang.System)}">
-    <span th:text="${system.getProperty('JDBC_DATABASE_URL')}" />
-    <span>-----------------------------------</span>
-    <div th:each="entry: ${system.getenv().entrySet()}" th:utext="${'<b>' + entry.getKey() + '</b>: ' + entry.getValue()}" />
-    <span>-----------------------------------</span>
-    <div th:each="key: ${system.getProperties().stringPropertyNames()}" th:utext="${'<b>' + key + '</b>: ' + system.getProperty(key)}" />
-</th:block>
+<!-- Primary Page Layout
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<div class="container">
+    <h1>Switchfully Database Starter</h1>
+
+    <div class="row">
+        <div style="margin-top: 10%">
+            <span th:text="${@environment.getProperty('JDBC_DATABASE_URL')}"/>
+        </div>
+    </div>
+
+    <button onclick="fetch('/database')">Install HR schema</button>
+    <button onclick="fetch('/database', {method: 'delete'})">Delete HR schema</button>
+
+
+    <th:block th:with="system=${T(java.lang.System)}">
+        <table class="u-full-width">
+            <thead>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-th-each="entry: ${system.getenv().entrySet()}">
+                <td data-th-text="${entry.key}">...</td>
+                <td data-th-text="${entry.value}">...</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="u-full-width">
+            <thead>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-th-each="key: ${system.getProperties().stringPropertyNames()}">
+                <td data-th-text="${key}">...</td>
+                <td data-th-text="${system.getProperty(key)}">...</td>
+            </tr>
+            </tbody>
+        </table>
+    </th:block>
+
+    <th:block th:with="system=${T(java.lang.System)}">
+        <span th:text="${system.getProperty('JDBC_DATABASE_URL')}"/>
+        <span>-----------------------------------</span>
+        <div th:each="entry: ${system.getenv().entrySet()}"
+             th:utext="${'<b>' + entry.getKey() + '</b>: ' + entry.getValue()}"/>
+        <span>-----------------------------------</span>
+
+    </th:block>
+</div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 </html>

@@ -21,6 +21,7 @@
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -36,8 +37,8 @@
         </div>
     </div>
 
-    <button onclick="fetch('/database')">Install HR schema</button>
-    <button onclick="fetch('/database', {method: 'delete'})">Delete HR schema</button>
+    <button onclick="installHrTable()">Install HR schema<i id="statusHr" class="fas fa-rocket"></i></button>
+    <button onclick="deleteTables()">Delete HR schema<i id="statusDelete" class="fas fa-rocket"></i></button>
 
 
     <th:block th:with="system=${T(java.lang.System)}">
@@ -82,6 +83,57 @@
     </th:block>
 </div>
 
+<script>
+    function installHrTable() {
+        // change icon => waiting
+        const icon = document.getElementById("statusHr");
+        icon.className = "fas fa-spinner fa-spin";
+        // do fetch
+        fetch('/database/hr'/*, {method: 'post'}*/)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log(response.status)
+                return response.text();
+            })
+            .then(data => {
+                //const icon = document.getElementById("status");
+                icon.className = "fas fa-check";
+                console.log(data);
+            })
+            .catch((error) => {
+                icon.className = "fas fa-times";
+                console.error('Error:', error);
+            });
+
+    }
+
+    function deleteTables() {
+        // change icon => waiting
+        const icon = document.getElementById("statusDelete");
+        icon.className = "fas fa-spinner fa-spin";
+        // do fetch
+        fetch('/database/delete'/*, {method: 'delete'}*/)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log('Response:', response.status)
+                return response.text();
+            })
+            .then(data => {
+                //const icon = document.getElementById("status");
+                icon.className = "fas fa-check";
+                console.log('Data:', data);
+            })
+            .catch((error) => {
+                icon.className = "fas fa-times";
+                console.error('Error:', error);
+            });
+
+    }
+</script>
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>

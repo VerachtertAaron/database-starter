@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -25,7 +22,7 @@ public class DatabaseController {
         this.dataSource = dataSource;
     }
 
-    @GetMapping
+    @GetMapping(path = "/hr")
     public String createHrTable() throws SQLException {
 
         ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("sql/hr-schema.sql"));
@@ -33,7 +30,15 @@ public class DatabaseController {
         return "OK";
     }
 
-    @DeleteMapping
+    @GetMapping(path = "/bank")
+    public String createBankingTable() throws SQLException {
+
+        ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("sql/bank-schema.sql"));
+        ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("sql/bank-data.sql"));
+        return "OK";
+    }
+
+    @GetMapping(path = "/delete")
     public String dropTable() throws SQLException {
         ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("sql/hr-dropcascade.sql"));
         return "OK drop";

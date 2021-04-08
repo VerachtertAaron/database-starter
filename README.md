@@ -6,7 +6,8 @@
 1. Login into Heroku
 1. Login into Github
 1. Click the "Deploy to Heroku" button
-1. Once the app has been deployed, browse to it (user = user, password = switchfully)
+1. Once the app has been deployed, browse to it (user = student, password = ...)
+
 > This will show the database connection string. With this information you can connect to your database, using pgAdmin
 >
 > jdbc:postgresql://ec2-46-137-156-205.eu-west-1.compute.amazonaws.com:5432/d4aqq2tklmo9sd?user=wbkkqvzkkvunnp&password=bed80f1bca07264f0c10bc3a5f66347a627e4061dd95e6ecd36ed64baaec456d&sslmode=require
